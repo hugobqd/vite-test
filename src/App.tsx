@@ -1,56 +1,42 @@
-import { useState, useEffect } from "react";
-import logo from "./logo.svg";
-import { Box, ChakraProvider } from "@chakra-ui/react";
-
-const localCount = localStorage.getItem("localCount");
-const initialCount: number = localCount ? JSON.parse(localCount) : 0;
+import { Provider as JotaiProvider, useAtom } from "jotai";
+import { Box, ChakraProvider, Stack, Button } from "@chakra-ui/react";
+import { mainColorAtom, settingsAtom } from "./store";
+import { getStringRGBColor } from "./utils";
+import { Search, Settings } from "./components";
 
 function App() {
-  const [count, setCount] = useState(initialCount);
-
-  useEffect(() => {
-    localStorage.setItem("localCount", JSON.stringify(count));
-  }, [count]);
+  const [mainColor, setMainColor] = useAtom(mainColorAtom);
+  const [settings] = useAtom(settingsAtom);
 
   return (
-    <ChakraProvider>
-      <Box bg="red.100" className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Hello Vite + React!</p>
-          <p>
-            <button
-              type="button"
-              onClick={() => setCount((count) => count + 1)}
-            >
-              count is: {count}
-            </button>
-          </p>
-          <p>
-            Edit <code>App.tsx</code> and save to test HMR updates.
-          </p>
-          <p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-            {" | "}
-            <a
-              className="App-link"
-              href="https://vitejs.dev/guide/features.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Vite Docs
-            </a>
-          </p>
-        </header>
-      </Box>
-    </ChakraProvider>
+    <JotaiProvider>
+      <ChakraProvider>
+        <Stack
+          height="100vh"
+          bg={getStringRGBColor(mainColor)}
+          spacing={10}
+          p={10}
+        >
+          <Search />
+
+          <Stack direction="row">
+            <Button onClick={() => setMainColor({ r: 255, g: 139, b: 213 })}>
+              Pick Pink
+            </Button>
+            <Button onClick={() => setMainColor({ r: 24, g: 48, b: 119 })}>
+              Pick Navy
+            </Button>
+          </Stack>
+
+          <Stack>
+            <Settings />
+            <Box as="pre">
+              Settings: <span>{JSON.stringify(settings)}</span>
+            </Box>
+          </Stack>
+        </Stack>
+      </ChakraProvider>
+    </JotaiProvider>
   );
 }
 
