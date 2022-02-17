@@ -7,10 +7,15 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 import { settingsAtom } from "../store";
 
 export const Settings = () => {
   const [settings, setSettings] = useAtom(settingsAtom);
+
+  useEffect(() => {
+    console.log("🔥 Settings");
+  });
 
   return (
     <Box>

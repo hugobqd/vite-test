@@ -14,6 +14,10 @@ export const Search = () => {
     setColor(color);
   };
 
+  useEffect(() => {
+    console.log("🔥 Search");
+  });
+
   return (
     <Center color={textColor}>
       <Stack direction="row" alignItems="center">
