@@ -3,6 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Home } from "./pages/Home";
 
 function App() {
+  console.log("🔥 App");
   return (
     <JotaiProvider>
       <ChakraProvider>

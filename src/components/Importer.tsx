@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAtom } from "jotai";
 import {
   Badge,
-  Box,
   Checkbox,
   CheckboxGroup,
+  FormControl,
+  FormLabel,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { listAtom, shadesAtom } from "../store";
 import * as importedLibs from "../libs";
 import type { Lib, Shade } from "../types";
-
-// interface Libs {
-//   slug: string;
-//   name: string;
-//   colors: number[];
-// }
 
 interface LibsInObject {
   [key: string]: Lib;
@@ -24,28 +18,15 @@ interface LibsInObject {
 
 const libs: LibsInObject = importedLibs;
 
-// const libs: LooseObject = {
-//   tailwindcss: {
-//     slug: "tailwindcss",
-//     name: "Tailwindcss",
-//     colors: [10, 20, 30],
-//   },
-//   chakraui: {
-//     slug: "chakraui",
-//     name: "Chakra-UI",
-//     colors: [11, 22, 33, 44, 55, 66, 77, 88, 99],
-//   },
-// };
-
 export const Importer = () => {
-  console.log(libs);
+  console.log("🔥 Importer");
 
   // TODO: check if list in storage match imported libs key
   const [list, setList] = useAtom(listAtom);
-  const [shades, setShades] = useAtom(shadesAtom);
+  const [_, setShades] = useAtom(shadesAtom);
 
   useEffect(() => {
-    console.log(list);
+    console.log("✅ list", list);
 
     const newShades = list.reduce(
       (acc: Shade[], val: string) => [...acc, ...libs[val].colors],
@@ -54,36 +35,39 @@ export const Importer = () => {
     setShades(newShades);
   }, [list]);
 
-  useEffect(() => {
-    console.log("🔥 Importer");
-  });
-
   return (
-    <Stack border="1px" p={6}>
-      <Text>
-        Libraries{" "}
-        <Badge rounded="full" colorScheme={list.length ? "blackAlpha" : "red"}>
-          {list.length}
-        </Badge>{" "}
-        :
-      </Text>
-      <CheckboxGroup
-        colorScheme="blackAlpha"
-        value={list}
-        onChange={(v: string[]) => setList(v)}
-      >
-        <Stack>
-          {Object.keys(libs).map((key, index) => {
-            const item = libs[key];
-            return (
-              <Checkbox value={key} key={key}>
-                {item.name}
-              </Checkbox>
-            );
-          })}
-        </Stack>
-      </CheckboxGroup>
-      <Box as="pre">{shades.length}</Box>
+    <Stack bg="white" p={3} rounded="md">
+      <FormControl>
+        <FormLabel>
+          Libraries{" "}
+          <Badge
+            rounded="full"
+            colorScheme={list.length ? "blackAlpha" : "red"}
+            position="relative"
+            variant={"solid"}
+            top="-.1em"
+          >
+            {list.length}
+          </Badge>{" "}
+          :
+        </FormLabel>
+        <CheckboxGroup
+          colorScheme="blackAlpha"
+          value={list}
+          onChange={(v: string[]) => setList(v)}
+        >
+          <Stack>
+            {Object.keys(libs).map((key, index) => {
+              const item = libs[key];
+              return (
+                <Checkbox value={key} key={key}>
+                  {item.name}
+                </Checkbox>
+              );
+            })}
+          </Stack>
+        </CheckboxGroup>{" "}
+      </FormControl>
     </Stack>
   );
 };

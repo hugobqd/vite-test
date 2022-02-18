@@ -1,8 +1,10 @@
 import type { RgbColor } from "react-colorful";
 
+console.log("🔥 types");
+
 export type { RgbColor };
 
-export type ColorLAB = {
+export type LABColor = {
   L: number;
   A: number;
   B: number;
@@ -14,8 +16,12 @@ export interface Shade {
   name: string;
   hex: string;
   rgb: RgbColor;
-  LAB: ColorLAB;
+  LAB: LABColor;
   brightness: number;
+}
+
+export interface ShadeDistance extends Shade {
+  distance: number;
 }
 
 export interface Lib {

@@ -1,27 +1,23 @@
-import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { Stack, Button } from "@chakra-ui/react";
-import { mainColorAtom, settingsAtom, shadesAtom } from "../store";
-import { getStringRGBColor } from "../utils";
-import { Search, Settings } from "../components";
-import { Importer } from "../components/Importer";
+import { mainColorAtom } from "../store";
+import { getStringRgbColor } from "../utils";
+import { Search, Settings, Importer, Results } from "../components";
 
 export const Home = () => {
-  const [mainColor, setMainColor] = useAtom(mainColorAtom);
-  const [settings] = useAtom(settingsAtom);
-  const [shades] = useAtom(shadesAtom);
+  console.log("🔥 Home");
 
-  useEffect(() => {
-    console.log("🔥 Home");
-  });
+  const [mainColor, setMainColor] = useAtom(mainColorAtom);
 
   return (
-    <Stack height="100vh" bg={getStringRGBColor(mainColor)} spacing={10} p={10}>
+    <Stack height="100vh" bg={getStringRgbColor(mainColor)} spacing={4} p={10}>
+      <Settings />
+
       <Importer />
 
-      <div>Shades ({shades.length})</div>
-      <div>settings: {settings.results}</div>
       <Search />
+
+      <Results />
 
       <Stack direction="row">
         <Button onClick={() => setMainColor({ r: 255, g: 139, b: 213 })}>
@@ -31,8 +27,6 @@ export const Home = () => {
           Pick Navy
         </Button>
       </Stack>
-
-      <Settings />
     </Stack>
   );
 };

@@ -1,39 +1,41 @@
-import { Box } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import {
+  Box,
+  FormControl,
+  FormLabel,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { useAtom } from "jotai";
-import { useEffect } from "react";
 import { settingsAtom } from "../store";
 
 export const Settings = () => {
-  const [settings, setSettings] = useAtom(settingsAtom);
+  console.log("🔥 Settings");
 
-  useEffect(() => {
-    console.log("🔥 Settings");
-  });
+  const [settings, setSettings] = useAtom(settingsAtom);
 
   return (
     <Box>
-      <NumberInput
-        min={1}
-        max={10}
-        precision={0}
-        value={settings.results}
-        onChange={(valueAsString: string, valueAsNumber: number) =>
-          setSettings({ results: valueAsNumber })
-        }
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel mb={0}>Number of results</FormLabel>
+        <NumberInput
+          min={1}
+          max={10}
+          precision={0}
+          value={settings.results}
+          onChange={(valueAsString: string, valueAsNumber: number) =>
+            setSettings({ results: valueAsNumber })
+          }
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </FormControl>
     </Box>
   );
 };

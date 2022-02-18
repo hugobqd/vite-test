@@ -975,6 +975,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@types/delta-e@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@types/delta-e/-/delta-e-0.0.0.tgz#f2d99a1613995631f39d2494757559bd634a675c"
+  integrity sha512-ePlXUpSy1oU/JOayGaAoyVDoQB1m1gguj8k+gxASP6+uutrwaKobWwyTZOzUIJ9fqI4wxfHKmBTx2ogP7uMv7w==
+
 "@types/lodash.mergewith@4.6.6":
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.mergewith/-/lodash.mergewith-4.6.6.tgz#c4698f5b214a433ff35cb2c75ee6ec7f99d79f10"
@@ -1155,6 +1160,11 @@ debug@^4.1.0:
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
   dependencies:
     ms "2.1.2"
+
+delta-e@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/delta-e/-/delta-e-0.0.8.tgz#ad2097846fb5d3f1d8aa4668005adabc8c7cffb9"
+  integrity sha512-xIggbz7AoZLjwyV+BatfsKhWB1ejeh6vabM4KTJ2e7/d+TS0f7s87aUfkJ7B+MfniM6DD5VOWWlqcKXksp5mIg==
 
 detect-node-es@^1.1.0:
   version "1.1.0"
