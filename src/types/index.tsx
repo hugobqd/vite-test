@@ -1,4 +1,5 @@
 import type { RgbColor } from "react-colorful";
+// { RgbColor, RgbaColor, HslColor, HslaColor, HsvColor, HsvaColor }
 
 console.log("🔥 types");
 

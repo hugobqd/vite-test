@@ -1,13 +1,22 @@
 import { AspectRatio, Box, BoxProps, Stack, Text } from "@chakra-ui/react";
 import { ShadeDistance } from "../types";
+import { getBrightness } from "../utils";
 
 interface ShadeCardType extends BoxProps {
   shade: ShadeDistance;
 }
 
 export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
+  const textColor = getBrightness(shade.rgb) > 128 ? "#000" : "#FFF";
+
   return (
-    <Box bg={shade.hex} border="1px" borderColor="white" {...rest}>
+    <Box
+      bg={shade.hex}
+      border="1px"
+      borderColor="white"
+      color={textColor}
+      {...rest}
+    >
       <AspectRatio>
         <Stack>
           <Text>{shade.name}</Text>

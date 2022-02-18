@@ -8,7 +8,6 @@ export const Search = () => {
   console.log("🔥 Search");
 
   const [color, setColor] = useAtom(mainColorAtom);
-  const textColor = getBrightness(color) > 128 ? "#000" : "#FFF";
 
   const handlePickerChange = (color: RgbColor) => {
     console.log("🎨", color);
@@ -16,7 +15,7 @@ export const Search = () => {
   };
 
   return (
-    <Center color={textColor}>
+    <Center>
       <Stack direction="row" alignItems="center">
         <Box>
           <RgbColorPicker color={color} onChange={handlePickerChange} />

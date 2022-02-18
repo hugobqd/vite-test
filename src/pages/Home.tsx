@@ -1,16 +1,22 @@
 import { useAtom } from "jotai";
 import { Flex, Stack, Button, Spacer } from "@chakra-ui/react";
 import { mainColorAtom } from "../store";
-import { getStringRgbColor } from "../utils";
+import { getBrightness, getStringRgbColor } from "../utils";
 import { Search, Settings, Importer, Results } from "../components";
 
 export const Home = () => {
   console.log("🔥 Home");
 
   const [mainColor, setMainColor] = useAtom(mainColorAtom);
+  const textColor = getBrightness(mainColor) > 128 ? "#000" : "#FFF";
 
   return (
-    <Flex direction="column" height="100vh" bg={getStringRgbColor(mainColor)}>
+    <Flex
+      direction="column"
+      height="100vh"
+      bg={getStringRgbColor(mainColor)}
+      color={textColor}
+    >
       <Stack shouldWrapChildren p={6}>
         <Settings />
         <Importer width="max-content" />

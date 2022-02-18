@@ -37,7 +37,7 @@ export const Importer = (props: BoxProps) => {
   }, [list]);
 
   return (
-    <Stack bg="white" p={3} rounded="md" {...props}>
+    <Stack bg="white" p={3} rounded="md" color="gray.800" {...props}>
       <FormControl>
         <FormLabel>
           Libraries{" "}
