@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAtom } from "jotai";
 import {
   Badge,
+  BoxProps,
   Checkbox,
   CheckboxGroup,
   FormControl,
@@ -18,7 +19,7 @@ interface LibsInObject {
 
 const libs: LibsInObject = importedLibs;
 
-export const Importer = () => {
+export const Importer = (props: BoxProps) => {
   console.log("🔥 Importer");
 
   // TODO: check if list in storage match imported libs key
@@ -36,7 +37,7 @@ export const Importer = () => {
   }, [list]);
 
   return (
-    <Stack bg="white" p={3} rounded="md">
+    <Stack bg="white" p={3} rounded="md" {...props}>
       <FormControl>
         <FormLabel>
           Libraries{" "}

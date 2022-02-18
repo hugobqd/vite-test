@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { Stack, Button } from "@chakra-ui/react";
+import { Flex, Stack, Button, Spacer } from "@chakra-ui/react";
 import { mainColorAtom } from "../store";
 import { getStringRgbColor } from "../utils";
 import { Search, Settings, Importer, Results } from "../components";
@@ -10,23 +10,23 @@ export const Home = () => {
   const [mainColor, setMainColor] = useAtom(mainColorAtom);
 
   return (
-    <Stack height="100vh" bg={getStringRgbColor(mainColor)} spacing={4} p={10}>
-      <Settings />
+    <Flex direction="column" height="100vh" bg={getStringRgbColor(mainColor)}>
+      <Stack shouldWrapChildren p={6}>
+        <Settings />
+        <Importer width="max-content" />
+        <Search />
 
-      <Importer />
-
-      <Search />
-
-      <Results />
-
-      <Stack direction="row">
-        <Button onClick={() => setMainColor({ r: 255, g: 139, b: 213 })}>
-          Pick Pink
-        </Button>
-        <Button onClick={() => setMainColor({ r: 24, g: 48, b: 119 })}>
-          Pick Navy
-        </Button>
+        <Stack direction="row">
+          <Button onClick={() => setMainColor({ r: 255, g: 139, b: 213 })}>
+            Pick Pink
+          </Button>
+          <Button onClick={() => setMainColor({ r: 24, g: 48, b: 119 })}>
+            Pick Navy
+          </Button>
+        </Stack>
       </Stack>
-    </Stack>
+      <Spacer />
+      <Results />
+    </Flex>
   );
 };
