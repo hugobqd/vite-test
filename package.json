@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.3",
+    "@ctrl/tinycolor": "^3.4.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@types/delta-e": "^0.0.0",
