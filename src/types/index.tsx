@@ -26,6 +26,7 @@ export interface Shade {
   rgb: RgbColor;
   LAB: LABColor;
   brightness: number;
+  hsl: string;
 }
 
 export interface ShadeDistance extends Shade {
