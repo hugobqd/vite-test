@@ -5,6 +5,13 @@ console.log("🔥 types");
 
 export type { RgbColor };
 
+export interface Picker {
+  candidate: RgbColor;
+  inputValue: string;
+  inputValid: boolean;
+  format: string;
+}
+
 export type LABColor = {
   L: number;
   A: number;

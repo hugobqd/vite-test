@@ -10,13 +10,7 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
   const textColor = getBrightness(shade.rgb) > 128 ? "#000" : "#FFF";
 
   return (
-    <Box
-      bg={shade.hex}
-      border="1px"
-      borderColor="white"
-      color={textColor}
-      {...rest}
-    >
+    <Box bg={shade.hex} color={textColor} {...rest}>
       <AspectRatio>
         <Stack>
           <Text>{shade.name}</Text>

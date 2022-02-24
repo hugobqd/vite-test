@@ -9,49 +9,25 @@ import {
 } from "@chakra-ui/react";
 import { RgbColorPicker, RgbColor } from "react-colorful";
 import { getStringRgbColor } from "../utils";
-import { mainColorAtom } from "../store";
-import { useEffect, useState } from "react";
+import { searchAtom } from "../store";
 import { TinyColor } from "@ctrl/tinycolor";
+import { Picker } from "../types";
 
-interface Picker {
-  candidate: RgbColor;
-  colorPicker: RgbColor;
-  inputValue: string;
-  inputValid: boolean;
-  format: string;
-}
 interface Update extends Partial<Picker> {}
-
-const createSearch = (rgb: RgbColor) => {
-  console.log("🧰 createSearch", rgb);
-  return {
-    candidate: rgb,
-    colorPicker: rgb,
-    inputValue: getStringRgbColor(rgb),
-    inputValid: true,
-    format: "rgb",
-  };
-};
 
 export const Search = () => {
   console.log("🔥 Search");
 
-  const [color, setColor] = useAtom(mainColorAtom);
-  const [search, setSearch] = useState<Picker>(createSearch(color));
+  const [search, setSearch] = useAtom(searchAtom);
 
   // TODO: make 'search' updatable from outside via 'color'
   // useEffect(() => {
   //   setSearch(createSearch(color));
   // }, [color]);
 
-  useEffect(() => {
-    setColor(search.candidate);
-  }, [search.candidate]);
-
   const handlePicker = (rgb: RgbColor) => {
     console.log("🎨 handlePicker", rgb);
     const update: Update = {
-      colorPicker: rgb,
       candidate: rgb,
       inputValid: true,
     };
@@ -77,10 +53,11 @@ export const Search = () => {
     };
     if (InputData.isValid) {
       update.candidate = InputData.toRgb();
-      update.colorPicker = InputData.toRgb();
     }
     if (InputData.format === "hex" || InputData.format === "rgb") {
       update.format = InputData.format;
+    } else {
+      update.format = "none";
     }
 
     setSearch({ ...search, ...update });
@@ -109,7 +86,7 @@ export const Search = () => {
       <Stack direction="row" alignItems="center">
         <Box>
           <RgbColorPicker
-            color={search.colorPicker}
+            color={search.candidate}
             onChange={(v) => handlePicker(v)}
           />
         </Box>
