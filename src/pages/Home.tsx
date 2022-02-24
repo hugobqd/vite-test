@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Flex, Stack, Button, Spacer } from "@chakra-ui/react";
 import { searchAtom } from "../store";
-import { getBrightness, getStringRgbColor } from "../utils";
+import { getBrightness, getRgbString } from "../utils";
 import { Search, Settings, Importer, Results } from "../components";
 
 export const Home = () => {
@@ -14,7 +14,7 @@ export const Home = () => {
     <Flex
       direction="column"
       height="100vh"
-      bg={getStringRgbColor(mainColor.candidate)}
+      bg={getRgbString(mainColor.candidate)}
       color={textColor}
     >
       <Stack shouldWrapChildren p={6}>

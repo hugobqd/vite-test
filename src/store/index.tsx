@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import DeltaE from "delta-e";
 import { LABColor, Picker, RgbColor, Shade, ShadeDistance } from "../types";
-import { getStringRgbColor, rgbToLab } from "../utils";
+import { getRgbString, rgbToLab } from "../utils";
 
 console.log("🔥 store");
 
@@ -17,7 +17,7 @@ const createSearch = (rgb: RgbColor) => {
   return {
     candidate: rgb,
     colorPicker: rgb,
-    inputValue: getStringRgbColor(rgb),
+    inputValue: getRgbString(rgb),
     inputValid: true,
     format: "rgb",
   };

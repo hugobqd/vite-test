@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { RgbColorPicker, RgbColor } from "react-colorful";
-import { getStringRgbColor } from "../utils";
+import { getRgbString } from "../utils";
 import { searchAtom } from "../store";
 import { TinyColor } from "@ctrl/tinycolor";
 import { Picker } from "../types";
@@ -33,12 +33,17 @@ export const Search = () => {
     };
 
     if (search.format === "rgb") {
-      update.inputValue = getStringRgbColor(rgb);
+      update.inputValue = getRgbString(rgb);
     }
     if (search.format === "hex") {
       update.inputValue = new TinyColor(
-        getStringRgbColor(search.candidate)
+        getRgbString(search.candidate)
       ).toHexString();
+    }
+    if (search.format === "hsl") {
+      update.inputValue = new TinyColor(
+        getRgbString(search.candidate)
+      ).toHslString();
     }
 
     setSearch({ ...search, ...update });
@@ -54,7 +59,11 @@ export const Search = () => {
     if (InputData.isValid) {
       update.candidate = InputData.toRgb();
     }
-    if (InputData.format === "hex" || InputData.format === "rgb") {
+    if (
+      InputData.format === "hex" ||
+      InputData.format === "rgb" ||
+      InputData.format === "hsl"
+    ) {
       update.format = InputData.format;
     } else {
       update.format = "none";
@@ -71,12 +80,17 @@ export const Search = () => {
     };
 
     if (format === "rgb") {
-      update.inputValue = getStringRgbColor(search.candidate);
+      update.inputValue = getRgbString(search.candidate);
     }
     if (format === "hex") {
       update.inputValue = new TinyColor(
-        getStringRgbColor(search.candidate)
+        getRgbString(search.candidate)
       ).toHexString();
+    }
+    if (format === "hsl") {
+      update.inputValue = new TinyColor(
+        getRgbString(search.candidate)
+      ).toHslString();
     }
     setSearch({ ...search, ...update });
   };
@@ -109,6 +123,12 @@ export const Search = () => {
               onClick={() => handleFormat("hex")}
             >
               HEX
+            </Button>
+            <Button
+              variant={search.format === "hsl" ? "solid" : "outline"}
+              onClick={() => handleFormat("hsl")}
+            >
+              HSL
             </Button>
           </ButtonGroup>
           {/* <Box as="pre" fontSize="11px">
