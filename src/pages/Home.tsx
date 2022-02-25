@@ -1,5 +1,18 @@
 import { useAtom } from "jotai";
-import { Flex, Stack, Button, Spacer } from "@chakra-ui/react";
+import {
+  Flex,
+  Stack,
+  Button,
+  Spacer,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+} from "@chakra-ui/react";
 import { searchAtom } from "../store";
 import { getBrightness, getRgbString } from "../utils";
 import { Search, Settings, Importer, Results } from "../components";
@@ -7,46 +20,41 @@ import { Search, Settings, Importer, Results } from "../components";
 export const Home = () => {
   console.log("🔥 Home");
 
-  const [mainColor, setMainColor] = useAtom(searchAtom);
+  const [mainColor] = useAtom(searchAtom);
   const textColor = getBrightness(mainColor.candidate) > 128 ? "#000" : "#FFF";
 
   return (
-    <Flex
+    <Stack
       direction="column"
       height="100vh"
       bg={getRgbString(mainColor.candidate)}
       color={textColor}
+      fontFamily="mono"
     >
-      <Stack shouldWrapChildren p={6}>
-        <Settings />
-        <Importer width="max-content" />
-        <Search />
+      <Flex p={6}>
+        <Popover>
+          <PopoverTrigger>
+            <Button variant="outline" borderColor="currentcolor">
+              Libs
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent mx={6}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              <Importer width="max-content" />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Flex>
 
-        <Stack direction="row">
-          <Button
-            onClick={() =>
-              setMainColor({
-                ...mainColor,
-                candidate: { r: 255, g: 139, b: 213 },
-              })
-            }
-          >
-            Pick Pink
-          </Button>
-          <Button
-            onClick={() =>
-              setMainColor({
-                ...mainColor,
-                candidate: { r: 24, g: 48, b: 119 },
-              })
-            }
-          >
-            Pick Navy
-          </Button>
-        </Stack>
-      </Stack>
       <Spacer />
+      <Search />
+      <Spacer />
+      <Flex justifyContent={"flex-end"} p={6}>
+        <Settings />
+      </Flex>
       <Results />
-    </Flex>
+    </Stack>
   );
 };

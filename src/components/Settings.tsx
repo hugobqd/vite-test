@@ -8,6 +8,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import { settingsAtom } from "../store";
 
@@ -19,8 +20,11 @@ export const Settings = () => {
   return (
     <Box>
       <FormControl display="flex" alignItems="center">
-        <FormLabel mb={0}>Number of results</FormLabel>
+        <VisuallyHidden as={FormLabel} mb={0}>
+          Number of results
+        </VisuallyHidden>
         <NumberInput
+          width={20}
           min={1}
           max={10}
           precision={0}
