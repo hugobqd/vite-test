@@ -20,7 +20,7 @@ export type LABColor = {
 
 export interface Shade {
   id: string;
-  lib: string;
+  slug: string;
   name: string;
   hex: string;
   rgb: RgbColor;

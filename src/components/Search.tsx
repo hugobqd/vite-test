@@ -20,11 +20,6 @@ export const Search = () => {
 
   const [search, setSearch] = useAtom(searchAtom);
 
-  // TODO: make 'search' updatable from outside via 'color'
-  // useEffect(() => {
-  //   setSearch(createSearch(color));
-  // }, [color]);
-
   const handlePicker = (rgb: RgbColor) => {
     console.log("🎨 handlePicker", rgb);
     const update: Update = {
@@ -110,7 +105,13 @@ export const Search = () => {
             onChange={(e) => handleInput(e.target.value)}
             isInvalid={!search.inputValid}
           />
-          <ButtonGroup isAttached size="sm">
+          <ButtonGroup isAttached size="sm" justifyContent="center">
+            <Button
+              variant={search.format === "hex" ? "solid" : "outline"}
+              onClick={() => handleFormat("hex")}
+            >
+              HEX
+            </Button>
             <Button
               variant={search.format === "rgb" ? "solid" : "outline"}
               onClick={() => handleFormat("rgb")}
@@ -119,21 +120,12 @@ export const Search = () => {
               RGB
             </Button>
             <Button
-              variant={search.format === "hex" ? "solid" : "outline"}
-              onClick={() => handleFormat("hex")}
-            >
-              HEX
-            </Button>
-            <Button
               variant={search.format === "hsl" ? "solid" : "outline"}
               onClick={() => handleFormat("hsl")}
             >
               HSL
             </Button>
           </ButtonGroup>
-          {/* <Box as="pre" fontSize="11px">
-            {JSON.stringify(search, null, 2)}
-          </Box> */}
         </Stack>
       </Stack>
     </Center>

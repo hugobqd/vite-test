@@ -3,10 +3,12 @@ import {
   Box,
   BoxProps,
   Button,
+  HStack,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
+import { Logo } from ".";
 import { searchAtom } from "../store";
 import { ShadeDistance } from "../types";
 import { getBrightness } from "../utils";
@@ -18,15 +20,20 @@ interface ShadeCardType extends BoxProps {
 export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
   const [mainColor, setMainColor] = useAtom(searchAtom);
 
-  const textColor = getBrightness(shade.rgb) > 128 ? "#000" : "#FFF";
-  const bgColorscheme = getBrightness(shade.rgb) > 128 ? "white" : "black";
+  const textColor = getBrightness(shade.rgb) > 128 ? "black" : "white";
+  const bgColor = getBrightness(shade.rgb) > 128 ? "white" : "black";
 
   return (
     <Box bg={shade.hex} color={textColor} {...rest}>
       <AspectRatio>
-        <Stack spacing={1}>
-          <Text>{shade.name}</Text>
-          <Text fontSize="sm">{shade.lib}</Text>
+        <Stack spacing={2}>
+          <Text fontSize="lg">{shade.name}</Text>
+          <HStack justifyContent="center" color={`${textColor}Alpha.700`}>
+            <Logo lib={shade.slug} />
+            <Text fontSize="sm" fontWeight="semibold">
+              {shade.slug}
+            </Text>
+          </HStack>
           {shade.distance === 0 && <Text fontSize="sm">Perfect match</Text>}
           {shade.distance !== 0 && (
             <Text fontSize="sm">{Math.round(100 - shade.distance)} %</Text>
@@ -34,7 +41,8 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
           <Button
             size="xs"
             color="inherit"
-            bg={`${bgColorscheme}Alpha.300`}
+            bg={`${bgColor}Alpha.300`}
+            // TODO: populate input, create his how function
             onClick={() =>
               setMainColor({
                 ...mainColor,
