@@ -2,16 +2,19 @@ import { useEffect } from "react";
 import { useAtom } from "jotai";
 import {
   Badge,
+  Box,
   BoxProps,
   Checkbox,
   CheckboxGroup,
   FormControl,
   FormLabel,
+  HStack,
   Stack,
 } from "@chakra-ui/react";
 import { listAtom, shadesAtom } from "../store";
 import * as importedLibs from "../libs";
 import type { Lib, Shade } from "../types";
+import { Logo } from ".";
 
 interface LibsInObject {
   [key: string]: Lib;
@@ -53,7 +56,7 @@ export const Importer = (props: BoxProps) => {
           :
         </FormLabel>
         <CheckboxGroup
-          colorScheme="blackAlpha"
+          colorScheme="gray"
           value={list}
           onChange={(v: string[]) => setList(v)}
         >
@@ -62,7 +65,10 @@ export const Importer = (props: BoxProps) => {
               const item = libs[key];
               return (
                 <Checkbox value={key} key={key}>
-                  {item.name}
+                  <HStack pl={2}>
+                    <Logo lib={item.slug} color="gray.400" boxSize={5} />
+                    <Box>{item.name}</Box>
+                  </HStack>
                 </Checkbox>
               );
             })}
