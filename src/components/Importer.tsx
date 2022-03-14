@@ -22,6 +22,8 @@ interface LibsInObject {
 
 const libs: LibsInObject = importedLibs;
 
+console.log("🌎", libs);
+
 export const Importer = (props: BoxProps) => {
   console.log("🔥 Importer");
 
