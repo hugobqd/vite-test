@@ -1,5 +1,5 @@
 export { default as bootstrap } from "./bootstrap";
-export { default as chakraui } from "./chakraui";
+export { chakraui } from "./chakraui";
 export { default as tailwindcss } from "./tailwindcss";
 export { default as antdesign } from "./antdesign";
 export { default as antdesigndark } from "./antdesigndark";

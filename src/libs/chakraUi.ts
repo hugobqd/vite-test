@@ -30,7 +30,7 @@ SOFTWARE.
 
  */
 
-const lib: Lib = {
+export const chakraui: Lib = {
   name: "Chakra-UI",
   website: "https://chakra-ui.com",
   slug: "chakraui",
@@ -2953,5 +2953,3 @@ const lib: Lib = {
     },
   ],
 };
-
-export default lib;
