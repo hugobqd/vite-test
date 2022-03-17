@@ -30,6 +30,7 @@ export const Home = () => {
       bg={getRgbString(mainColor.candidate)}
       color={textColor}
       fontFamily="mono"
+      overflow="hidden"
     >
       <Flex p={6}>
         <Popover>

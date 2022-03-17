@@ -11,7 +11,14 @@ export const Results = (props: BoxProps) => {
       {results?.length &&
         results
           .slice(0, settings.results)
-          .map((s, i) => <ShadeCard key={i} shade={s} flex={1 - i / 15} />)}
+          .map((s, i) => (
+            <ShadeCard
+              key={i}
+              shade={s}
+              flex={1 - i / 25}
+              fontSize={`${(5 / settings.results) * (1 - i / 25)}em`}
+            />
+          ))}
       {!results?.length && <Center>Please chose a library</Center>}
     </Flex>
   );

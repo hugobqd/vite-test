@@ -1,58 +1,190 @@
+import { useState } from "react";
+import { useAtom } from "jotai";
 import {
   AspectRatio,
   Box,
   BoxProps,
   Button,
+  Flex,
   HStack,
   Stack,
-  Text,
 } from "@chakra-ui/react";
-import { useAtom } from "jotai";
-import { Logo } from ".";
+import { Logo, MotionBox } from ".";
 import { searchAtom } from "../store";
 import { ShadeDistance } from "../types";
-import { getBrightness } from "../utils";
+import { getBrightness, getRgbString } from "../utils";
 
 interface ShadeCardType extends BoxProps {
   shade: ShadeDistance;
 }
 
+const zIndex = {
+  bg: 1,
+  front: 2,
+  info: 3,
+  buttons: 4,
+};
+
 export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
   const [mainColor, setMainColor] = useAtom(searchAtom);
 
+  const [isHovered, setHovered] = useState(false);
+
+  console.log("mainColor", mainColor);
+
   const textColor = getBrightness(shade.rgb) > 128 ? "black" : "white";
   const bgColor = getBrightness(shade.rgb) > 128 ? "white" : "black";
+  const distance = `${Math.round(100 - shade.distance)} %`;
+
+  console.log("mainColor.format", mainColor.format);
+  const colorFormat = () => {
+    switch (mainColor.format) {
+      case "hex":
+        return shade.hex;
+        break;
+      case "rgb":
+        return getRgbString(shade.rgb);
+        break;
+      case "hsl":
+        return getRgbString(shade.rgb);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
-    <Box bg={shade.hex} color={textColor} {...rest}>
-      <AspectRatio>
-        <Stack spacing={2}>
-          <Text fontSize="lg">{shade.name}</Text>
-          <HStack justifyContent="center" color={`${textColor}Alpha.700`}>
-            <Logo lib={shade.slug} />
-            <Text fontSize="sm" fontWeight="semibold">
-              {shade.slug}
-            </Text>
-          </HStack>
-          {shade.distance === 0 && <Text fontSize="sm">Perfect match</Text>}
-          {shade.distance !== 0 && (
-            <Text fontSize="sm">{Math.round(100 - shade.distance)} %</Text>
-          )}
-          <Button
-            size="xs"
-            color="inherit"
-            bg={`${bgColor}Alpha.300`}
-            // TODO: populate input, create his how function
-            onClick={() =>
-              setMainColor({
-                ...mainColor,
-                candidate: shade.rgb,
-              })
-            }
+    <Box
+      position="relative"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      tabIndex={0}
+      {...rest}
+    >
+      <MotionBox
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        position="absolute"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        justifyContent="center"
+        zIndex={zIndex.front}
+        animate={{
+          y: isHovered ? "-3em" : 0,
+          opacity: isHovered ? 0 : 1,
+          scale: isHovered ? 0.75 : 1,
+        }}
+      >
+        <Box fontSize="1.1em" mb={"1em"} color={textColor} isTruncated>
+          {shade.name}
+        </Box>
+        <HStack color={`${textColor}Alpha.700`} display="inline-flex">
+          <Logo lib={shade.slug} />
+          <Box fontSize=".75em" fontWeight="semibold">
+            {shade.slug}
+          </Box>
+        </HStack>
+      </MotionBox>
+
+      <AspectRatio ratio={1} position="relative" bg="white" color="black">
+        <Flex
+          direction="column"
+          height="100%"
+          className="flex"
+          alignItems="stretch !important"
+          p="1em"
+        >
+          <Box flex={1} borderRadius="md" position="relative">
+            <MotionBox
+              position="absolute"
+              top={0}
+              left={0}
+              right={0}
+              bottom={0}
+              bg={shade.hex}
+              animate={{
+                scale: isHovered ? 1 : 3,
+                y: isHovered ? 0 : "2.5em",
+              }}
+              borderRadius="md"
+            />
+            <MotionBox
+              top=".5em"
+              left=".5em"
+              zIndex={zIndex.buttons}
+              position="absolute"
+              animate={{
+                x: isHovered ? 0 : "-.5em",
+                y: isHovered ? 0 : "-.5em",
+              }}
+            >
+              <Box
+                color={textColor}
+                height={6}
+                display="flex"
+                alignItems="center"
+                fontSize="sm"
+                px=".33em"
+              >
+                {distance}
+              </Box>
+            </MotionBox>
+            <MotionBox
+              position="absolute"
+              top=".5em"
+              right=".5em"
+              zIndex={zIndex.buttons}
+              animate={{
+                x: isHovered ? 0 : ".5em",
+                y: isHovered ? 0 : "-.5em",
+                opacity: isHovered ? 1 : 0,
+              }}
+            >
+              <HStack>
+                <Button
+                  size="xs"
+                  color="inherit"
+                  bg={`${"white"}Alpha.700`}
+                  onClick={() =>
+                    setMainColor({
+                      ...mainColor,
+                      candidate: shade.rgb,
+                    })
+                  }
+                >
+                  Pick
+                </Button>
+              </HStack>
+            </MotionBox>
+          </Box>
+          <MotionBox
+            as={Stack}
+            textAlign="left"
+            spacing={0}
+            pt={".5em"}
+            zIndex={zIndex.info}
+            lineHeight="short"
+            animate={{
+              y: isHovered ? 0 : "5em",
+              opacity: isHovered ? 1 : 0,
+            }}
           >
-            Pick
-          </Button>
-        </Stack>
+            <Box fontSize="1.1em" isTruncated>
+              {shade.name}
+            </Box>
+            <HStack fontSize=".8em">
+              <Logo lib={shade.slug} boxSize="1em" />
+              <Box>{shade.slug}</Box>
+            </HStack>
+            <Box fontSize=".8em">{colorFormat()}</Box>
+          </MotionBox>
+        </Flex>
       </AspectRatio>
     </Box>
   );
