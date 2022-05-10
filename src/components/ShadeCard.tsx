@@ -30,24 +30,17 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
 
   const [isHovered, setHovered] = useState(false);
 
-  console.log("mainColor", mainColor);
-
   const textColor = getBrightness(shade.rgb) > 128 ? "black" : "white";
-  const bgColor = getBrightness(shade.rgb) > 128 ? "white" : "black";
   const distance = `${Math.round(100 - shade.distance)} %`;
 
-  console.log("mainColor.format", mainColor.format);
   const colorFormat = () => {
     switch (mainColor.format) {
       case "hex":
         return shade.hex;
-        break;
       case "rgb":
         return getRgbString(shade.rgb);
-        break;
       case "hsl":
         return getRgbString(shade.rgb);
-        break;
 
       default:
         break;
