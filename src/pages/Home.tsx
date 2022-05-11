@@ -7,20 +7,20 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
 } from "@chakra-ui/react";
-import { searchAtom } from "../store";
+import { searchAtom, favAtom, listAtom } from "../store";
 import { getBrightness, getRgbString } from "../utils";
-import { Search, Settings, Importer, Results } from "../components";
+import { Search, Settings, Importer, Results, Favorites } from "../components";
 
 export const Home = () => {
   console.log("🔥 Home");
 
   const [mainColor] = useAtom(searchAtom);
+  const [fav] = useAtom(favAtom);
+  const [list] = useAtom(listAtom);
   const textColor = getBrightness(mainColor.candidate) > 128 ? "#000" : "#FFF";
 
   return (
@@ -36,7 +36,7 @@ export const Home = () => {
         <Popover>
           <PopoverTrigger>
             <Button variant="outline" borderColor="currentcolor">
-              Libs
+              Libraries ({list.length})
             </Button>
           </PopoverTrigger>
           <PopoverContent mx={6}>
@@ -44,6 +44,21 @@ export const Home = () => {
             <PopoverCloseButton />
             <PopoverBody>
               <Importer width="max-content" />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+        <Spacer />
+        <Popover>
+          <PopoverTrigger>
+            <Button variant="outline" borderColor="currentcolor">
+              Favorites ({fav.length})
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent mx={6}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              <Favorites />
             </PopoverBody>
           </PopoverContent>
         </Popover>

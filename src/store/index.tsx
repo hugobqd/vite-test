@@ -12,8 +12,8 @@ const initialColor = {
   b: 124,
 };
 
-const createSearch = (rgb: RgbColor) => {
-  console.log("🧰 createSearch", rgb);
+const initialSearch = (rgb: RgbColor) => {
+  console.log("🧰 initialSearch", rgb);
   return {
     candidate: rgb,
     colorPicker: rgb,
@@ -25,7 +25,7 @@ const createSearch = (rgb: RgbColor) => {
 
 export const searchAtom = atomWithStorage<Picker>(
   "search",
-  createSearch(initialColor)
+  initialSearch(initialColor)
 );
 
 export const settingsAtom = atomWithStorage("settings", { results: 4 });
@@ -45,3 +45,5 @@ export const shadesSortedAtom = atom<ShadeDistance[]>((get) => {
     return a.distance - b.distance;
   });
 });
+
+export const favAtom = atomWithStorage<ShadeDistance[]>("favorites", []);

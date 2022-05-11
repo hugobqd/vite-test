@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import {
   AspectRatio,
@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { Logo, MotionBox } from ".";
-import { searchAtom } from "../store";
+import { searchAtom, favAtom } from "../store";
 import { ShadeDistance } from "../types";
 import { getBrightness, getRgbString } from "../utils";
 
@@ -26,12 +26,43 @@ const zIndex = {
 };
 
 export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
+  const [fav, setFav] = useAtom(favAtom);
   const [mainColor, setMainColor] = useAtom(searchAtom);
 
   const [isHovered, setHovered] = useState(false);
 
   const textColor = getBrightness(shade.rgb) > 128 ? "black" : "white";
   const distance = `${Math.round(100 - shade.distance)} %`;
+
+  const [isInFav, setInFav] = useState(false);
+
+  useEffect(() => {
+    if (!fav.length) {
+      setInFav(false);
+    }
+    // Finding with for loop is the most performant
+    // https://nikitahl.com/how-to-find-an-item-in-a-javascript-array/
+    for (let i = 0; i < fav.length; i++) {
+      if (fav[i].id === shade.id) {
+        console.log("🍧 in fav", fav[i]);
+        setInFav(true);
+        break;
+      } else {
+        setInFav(false);
+      }
+    }
+  }, [shade, fav]);
+
+  const handleFav = (shadeDist: ShadeDistance) => {
+    if (!isInFav) {
+      setFav([...fav, shadeDist]);
+    } else {
+      const favNew = fav.filter((obj) => {
+        return obj.id != shade.id;
+      });
+      setFav(favNew);
+    }
+  };
 
   const colorFormat = () => {
     switch (mainColor.format) {
@@ -152,6 +183,14 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
                   }
                 >
                   Pick
+                </Button>
+                <Button
+                  size="xs"
+                  color={isInFav ? "white" : "black"}
+                  bg={`${isInFav ? "black" : "white"}Alpha.700`}
+                  onClick={() => handleFav(shade)}
+                >
+                  Save
                 </Button>
               </HStack>
             </MotionBox>
