@@ -105,14 +105,18 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
           scale: isHovered ? 0.75 : 1,
         }}
       >
-        <Box fontSize="1.1em" mb={"1em"} color={textColor} isTruncated>
+        <Box
+          fontSize="1.1em"
+          mb={"1em"}
+          color={textColor}
+          fontWeight="semibold"
+          isTruncated
+        >
           {shade.name}
         </Box>
         <HStack color={`${textColor}Alpha.700`} display="inline-flex">
           <Logo lib={shade.slug} />
-          <Box fontSize=".75em" fontWeight="semibold">
-            {shade.slug}
-          </Box>
+          <Box fontSize=".75em">{shade.slug}</Box>
         </HStack>
       </MotionBox>
 
@@ -207,7 +211,7 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
               opacity: isHovered ? 1 : 0,
             }}
           >
-            <Box fontSize="1.1em" isTruncated>
+            <Box fontSize="1.1em" fontWeight="semibold" isTruncated>
               {shade.name}
             </Box>
             <HStack fontSize=".8em">

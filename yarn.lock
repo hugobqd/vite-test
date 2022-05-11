@@ -965,6 +965,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@fontsource/red-hat-mono@^4.5.9":
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/red-hat-mono/-/red-hat-mono-4.5.9.tgz#c046e6beb44c0da153e903d2438412bc27b9d560"
+  integrity sha512-dDhnknF6PC7H1UMmwd+/lJOuvCaMhaGKmswBgLqK/holTtiq8+BdC6g9fNfOMqp6LAqffM2O7GqzTVzb++hUKA==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"

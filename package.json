@@ -12,6 +12,7 @@
     "@ctrl/tinycolor": "^3.4.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/red-hat-mono": "^4.5.9",
     "@types/delta-e": "^0.0.0",
     "delta-e": "^0.0.8",
     "framer-motion": "^6",
