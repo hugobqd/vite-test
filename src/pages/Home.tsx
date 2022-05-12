@@ -13,11 +13,17 @@ export const Home = () => {
   return (
     <Flex
       direction="column"
-      height="100vh"
       bg={getRgbString(mainColor.candidate)}
       color={textColor}
       fontFamily="mono"
       overflow="hidden"
+      className="page"
+      sx={{
+        height: "100vh",
+        "&": {
+          minHeight: "--webkit-fill-available",
+        },
+      }}
     >
       <Navigation />
       <Center flex={1}>
