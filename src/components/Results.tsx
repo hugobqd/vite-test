@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { Center, Flex, BoxProps, Box, Icon, HStack } from "@chakra-ui/react";
-import { settingsAtom, shadesSortedAtom } from "../store";
+import { SETTINGS, shadesSortedAtom } from "../store";
 import { ShadeCard } from "./";
 import { RiArrowLeftUpLine } from "react-icons/ri";
 
@@ -9,12 +9,11 @@ const CARD_MAXW = "40vh";
 
 export const Results = (props: BoxProps) => {
   const [results] = useAtom(shadesSortedAtom);
-  const [settings] = useAtom(settingsAtom);
   return (
     <Box scrollBehavior="auto" overflowX="auto" {...props}>
       {!!results?.length && (
-        <Flex minWidth={`${settings.results * CARD_MINW}px`}>
-          {results.slice(0, settings.results).map((s, i) => (
+        <Flex minWidth={`${SETTINGS.results * CARD_MINW}px`}>
+          {results.slice(0, SETTINGS.results).map((s, i) => (
             <ShadeCard
               key={i}
               shade={s}

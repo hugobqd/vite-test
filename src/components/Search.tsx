@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   ButtonGroup,
   Input,
   Stack,
@@ -91,43 +92,49 @@ export const Search = () => {
   };
 
   return (
-    <Center>
-      <Stack direction="row" alignItems="center">
-        <Box>
-          <RgbColorPicker
-            color={search.candidate}
-            onChange={(v) => handlePicker(v)}
-          />
-        </Box>
-        <Stack p={4} color="gray.900" bg="white">
-          <Input
-            value={search.inputValue}
-            onChange={(e) => handleInput(e.target.value)}
-            isInvalid={!search.inputValid}
-          />
-          <ButtonGroup isAttached size="sm" justifyContent="center">
-            <Button
-              variant={search.format === "hex" ? "solid" : "outline"}
-              onClick={() => handleFormat("hex")}
-            >
-              HEX
-            </Button>
-            <Button
-              variant={search.format === "rgb" ? "solid" : "outline"}
-              onClick={() => handleFormat("rgb")}
-              mr="-px"
-            >
-              RGB
-            </Button>
-            <Button
-              variant={search.format === "hsl" ? "solid" : "outline"}
-              onClick={() => handleFormat("hsl")}
-            >
-              HSL
-            </Button>
-          </ButtonGroup>
-        </Stack>
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      alignItems="center"
+      rounded="8px"
+      p={{ base: 3, md: 4, lg: 5 }}
+      spacing={{ base: 3, md: 4, lg: 5 }}
+      bg="white"
+    >
+      <Box>
+        <RgbColorPicker
+          color={search.candidate}
+          onChange={(v) => handlePicker(v)}
+        />
+      </Box>
+      <Stack color="gray.900" spacing={4}>
+        <Input
+          value={search.inputValue}
+          onChange={(e) => handleInput(e.target.value)}
+          isInvalid={!search.inputValid}
+          textAlign="center"
+        />
+        <ButtonGroup isAttached size="xs" justifyContent="center">
+          <Button
+            variant={search.format === "hex" ? "solid" : "outline"}
+            onClick={() => handleFormat("hex")}
+          >
+            HEX
+          </Button>
+          <Button
+            variant={search.format === "rgb" ? "solid" : "outline"}
+            onClick={() => handleFormat("rgb")}
+            mr="-px"
+          >
+            RGB
+          </Button>
+          <Button
+            variant={search.format === "hsl" ? "solid" : "outline"}
+            onClick={() => handleFormat("hsl")}
+          >
+            HSL
+          </Button>
+        </ButtonGroup>
       </Stack>
-    </Center>
+    </Stack>
   );
 };

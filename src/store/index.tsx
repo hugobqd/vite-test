@@ -6,6 +6,10 @@ import { getRgbString, rgbToLab } from "../utils";
 
 console.log("🔥 store");
 
+export const SETTINGS = {
+  results: 6,
+};
+
 const initialColor = {
   r: 0,
   g: 255,

@@ -10,6 +10,7 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import { favAtom, listAtom } from "../store";
 import { Importer, Favorites } from "../components";
@@ -20,7 +21,7 @@ export const Navigation = () => {
   const [list] = useAtom(listAtom);
 
   return (
-    <Flex p={6}>
+    <Flex p={{ base: 1, md: 3, lg: 6 }}>
       <div></div>
       <Popover>
         <PopoverTrigger>
