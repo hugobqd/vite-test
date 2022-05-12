@@ -4,15 +4,17 @@ import {
   AspectRatio,
   Box,
   BoxProps,
-  Button,
+  Icon,
   Flex,
   HStack,
+  IconButton,
   Stack,
 } from "@chakra-ui/react";
 import { Logo, MotionBox } from ".";
 import { searchAtom, favAtom } from "../store";
 import { ShadeDistance } from "../types";
 import { getBrightness, getRgbString } from "../utils";
+import { RiSipLine, RiHeartFill, RiHeartLine } from "react-icons/ri";
 
 interface ShadeCardType extends BoxProps {
   shade: ShadeDistance;
@@ -32,7 +34,7 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
   const [isHovered, setHovered] = useState(false);
 
   const textColor = getBrightness(shade.rgb) > 128 ? "black" : "white";
-  const distance = `${Math.round(100 - shade.distance)} %`;
+  const distance = `${Math.round(100 - shade.distance)}%`;
 
   const [isInFav, setInFav] = useState(false);
 
@@ -85,6 +87,7 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
+      overflow="hidden"
       tabIndex={0}
       {...rest}
     >
@@ -163,41 +166,64 @@ export const ShadeCard = ({ shade, ...rest }: ShadeCardType) => {
                 {distance}
               </Box>
             </MotionBox>
-            <MotionBox
+            <Box
               position="absolute"
               top=".5em"
               right=".5em"
               zIndex={zIndex.buttons}
-              animate={{
-                x: isHovered ? 0 : ".5em",
-                y: isHovered ? 0 : "-.5em",
-                opacity: isHovered ? 1 : 0,
-              }}
             >
-              <HStack>
-                <Button
-                  size="xs"
-                  color="inherit"
-                  bg={`${"white"}Alpha.700`}
-                  onClick={() =>
-                    setMainColor({
-                      ...mainColor,
-                      candidate: shade.rgb,
-                    })
-                  }
+              <HStack color={textColor}>
+                <MotionBox
+                  animate={{
+                    x: isHovered ? 0 : ".5em",
+                    y: isHovered ? 0 : "-.5em",
+                    opacity: isHovered ? 1 : 0,
+                  }}
                 >
-                  Pick
-                </Button>
-                <Button
-                  size="xs"
-                  color={isInFav ? "white" : "black"}
-                  bg={`${isInFav ? "black" : "white"}Alpha.700`}
-                  onClick={() => handleFav(shade)}
+                  <IconButton
+                    aria-label="Pick this color"
+                    icon={
+                      <Icon as={RiSipLine} color="currentColor" boxSize={5} />
+                    }
+                    color="inherit"
+                    size="sm"
+                    variant="ghost"
+                    // bg={`${"white"}Alpha.700`}
+                    onClick={() =>
+                      setMainColor({
+                        ...mainColor,
+                        candidate: shade.rgb,
+                      })
+                    }
+                  />
+                </MotionBox>
+                <MotionBox
+                  animate={{
+                    x: isHovered ? 0 : ".5em",
+                    y: isHovered ? 0 : "-.5em",
+                    opacity: isHovered || isInFav ? 1 : 0,
+                  }}
                 >
-                  Save
-                </Button>
+                  <IconButton
+                    aria-label={
+                      isInFav ? "Remove from favorites" : "Save in favorites"
+                    }
+                    icon={
+                      <Icon
+                        as={isInFav ? RiHeartFill : RiHeartLine}
+                        color="currentColor"
+                        boxSize={5}
+                      />
+                    }
+                    color="inherit"
+                    size="sm"
+                    variant="ghost"
+                    // bg={`${"white"}Alpha.700`}
+                    onClick={() => handleFav(shade)}
+                  />
+                </MotionBox>
               </HStack>
-            </MotionBox>
+            </Box>
           </Box>
           <MotionBox
             as={Stack}
