@@ -2,6 +2,7 @@ export * from "./Favorites";
 export * from "./Importer";
 export * from "./logos";
 export * from "./MotionBox";
+export * from "./NavButton";
 export * from "./Navigation";
 export * from "./Results";
 export * from "./Search";

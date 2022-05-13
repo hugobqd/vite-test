@@ -11,9 +11,11 @@ import {
   PopoverCloseButton,
   Icon,
   IconButton,
+  Badge,
+  Box,
 } from "@chakra-ui/react";
 import { favAtom, listAtom } from "../store";
-import { Importer, Favorites } from "../components";
+import { Importer, Favorites, NavButton } from "../components";
 import { RiPaletteFill, RiHeartFill } from "react-icons/ri";
 
 export const Navigation = () => {
@@ -21,20 +23,25 @@ export const Navigation = () => {
   const [list] = useAtom(listAtom);
 
   return (
-    <Flex p={{ base: 1, md: 3, lg: 6 }}>
-      <div></div>
+    <Flex p={{ base: 2, md: 3, lg: 6 }}>
       <Popover>
         <PopoverTrigger>
-          <Button
-            variant="ghost"
-            leftIcon={<Icon as={RiPaletteFill} boxSize={6} />}
-          >
-            Libraries ({list.length})
-          </Button>
+          <NavButton
+            icon={<Icon as={RiPaletteFill} boxSize={6} />}
+            label="Libraries"
+            badge={
+              <Badge
+                colorScheme={list.length ? "whiteAlpha" : "red"}
+                variant="solid"
+                ml={2}
+              >
+                {list.length}
+              </Badge>
+            }
+          />
         </PopoverTrigger>
         <PopoverContent mx={6}>
           <PopoverArrow />
-          <PopoverCloseButton />
           <PopoverBody>
             <Importer width="max-content" />
           </PopoverBody>
@@ -43,16 +50,22 @@ export const Navigation = () => {
       <Spacer />
       <Popover>
         <PopoverTrigger>
-          <Button
-            variant="ghost"
-            leftIcon={<Icon as={RiHeartFill} boxSize={6} />}
-          >
-            Favorites ({fav.length})
-          </Button>
+          <NavButton
+            icon={<Icon as={RiHeartFill} boxSize={6} />}
+            label="Favorites"
+            badge={
+              <Badge
+                colorScheme={fav.length ? "whiteAlpha" : "red"}
+                variant="solid"
+                ml={2}
+              >
+                {fav.length}
+              </Badge>
+            }
+          />
         </PopoverTrigger>
         <PopoverContent mx={6}>
           <PopoverArrow />
-          <PopoverCloseButton />
           <PopoverBody>
             <Favorites />
           </PopoverBody>

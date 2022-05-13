@@ -9,12 +9,14 @@ export const Favorites = (props: BoxProps) => {
   return (
     <Stack spacing={1} pt={1} color="black" {...props}>
       {fav.map((item) => (
-        <HStack key={item.id} spacing={2}>
+        <HStack key={item.id} spacing={3}>
           <Box w={5} h={5} rounded="sm" bg={item.hex} />
           <Box>
             <Logo lib={item.slug} color="blackAlpha.600" />
           </Box>
-          <Box flex={1}>{item.name}</Box>
+          <Box flex={1} fontWeight="semibold">
+            {item.name}
+          </Box>
         </HStack>
       ))}
       {!fav.length && <Box>You have no favorites</Box>}

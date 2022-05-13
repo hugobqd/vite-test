@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { Center, Flex, BoxProps, Box, Icon, HStack } from "@chakra-ui/react";
+import { RiArrowLeftUpLine, RiPaletteFill } from "react-icons/ri";
 import { SETTINGS, shadesSortedAtom } from "../store";
 import { ShadeCard } from "./";
-import { RiArrowLeftUpLine } from "react-icons/ri";
 
 const CARD_MINW = 220;
 const CARD_MAXW = "40vh";
@@ -27,9 +27,10 @@ export const Results = (props: BoxProps) => {
       )}
       {!results?.length && (
         <Center height="200px">
-          <HStack fontWeight="semibold">
+          <HStack fontWeight="semibold" alignItems="center">
             <Icon as={RiArrowLeftUpLine} boxSize={7} />
-            <span>Please chose a library</span>
+            <span>Chose a library</span>
+            <Icon as={RiPaletteFill} boxSize={6} />
           </HStack>
         </Center>
       )}
