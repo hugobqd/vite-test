@@ -8,11 +8,11 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      'body"': {
+      "html, body": {
         minHeight: "100vh",
       },
-      "html, body": {
-        minHeight: "--webkit-fill-available",
+      'body"': {
+        minHeight: "100dvh",
       },
     },
   },

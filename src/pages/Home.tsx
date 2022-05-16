@@ -19,9 +19,9 @@ export const Home = () => {
       overflow="hidden"
       className="page"
       sx={{
-        height: "100vh",
+        minHeight: "100vh",
         "&": {
-          minHeight: "--webkit-fill-available",
+          minHeight: "100dvh",
         },
       }}
     >
