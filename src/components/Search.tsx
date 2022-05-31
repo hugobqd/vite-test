@@ -1,13 +1,5 @@
 import { useAtom } from "jotai";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  ButtonGroup,
-  Input,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Input, Stack } from "@chakra-ui/react";
 import { RgbColorPicker, RgbColor } from "react-colorful";
 import { getRgbString } from "../utils";
 import { searchAtom } from "../store";
@@ -61,8 +53,6 @@ export const Search = () => {
       InputData.format === "hsl"
     ) {
       update.format = InputData.format;
-    } else {
-      update.format = "none";
     }
 
     setSearch({ ...search, ...update });
