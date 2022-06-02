@@ -24,14 +24,10 @@ export const Search = () => {
       update.inputValue = getRgbString(rgb);
     }
     if (search.format === "hex") {
-      update.inputValue = new TinyColor(
-        getRgbString(search.candidate)
-      ).toHexString();
+      update.inputValue = new TinyColor(getRgbString(rgb)).toHexString();
     }
     if (search.format === "hsl") {
-      update.inputValue = new TinyColor(
-        getRgbString(search.candidate)
-      ).toHslString();
+      update.inputValue = new TinyColor(getRgbString(rgb)).toHslString();
     }
 
     setSearch({ ...search, ...update });
